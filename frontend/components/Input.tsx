@@ -9,7 +9,7 @@ const Input: React.FC<InputProps> = ({
 }) => {
   return (
     <input
-      className="p-3 rounded w-full focus:border border-blue-300"
+      className="p-3 rounded w-full border border-gray-200 focus:border border-blue-300"
       value={value}
       onChange={onChange}
       placeholder={placeholder}

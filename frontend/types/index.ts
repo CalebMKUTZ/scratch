@@ -47,3 +47,29 @@ export interface ButtonProps {
   onClick?: () => any;
   children: React.ReactNode;
 }
+
+export interface IUser {
+  id: number;
+  username: string;
+  pads: IPad[];
+}
+
+export interface UserContextProps {
+  user: any;
+  userData: any;
+  isLoggedIn: boolean;
+  error: string;
+  loginWithGoogle: () => void;
+  getUserWithPads: (email: string) => void;
+  logout: () => void;
+}
+
+export interface UserProviderProps {
+  children: React.ReactNode;
+}
+
+export interface CardProps {
+  title?: string;
+  content?: string;
+  children: React.ReactNode;
+}

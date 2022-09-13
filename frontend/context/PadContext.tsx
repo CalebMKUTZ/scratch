@@ -1,6 +1,7 @@
 import { createContext, useState } from "react";
 import { PadContextProps, PadProviderProps } from "../types";
 import axios from "axios";
+import { useRouter } from "next/router";
 
 export const PadContext = createContext<PadContextProps>(null);
 
@@ -8,6 +9,7 @@ export const PadProvider: React.FC<PadProviderProps> = ({ children }) => {
   const [pads, setPads] = useState([]);
   const [singlePad, setSinglePad] = useState();
   const [error, setError] = useState("");
+  const router = useRouter();
 
   const fetchPads = async () => {
     try {
@@ -41,9 +43,13 @@ export const PadProvider: React.FC<PadProviderProps> = ({ children }) => {
     }
   };
 
+  // !router.reload() is not ideal for updating the state
+  // FIX: setPads(newList.data) but it does not work since newList.data is not an array
+  // TODO: fix this
   const deletePad = async (id: number) => {
     try {
-      await axios.delete(`http://localhost:3000/pad/${id}`);
+      const newList = await axios.delete(`http://localhost:3000/pad/${id}`);
+      router.reload();
     } catch (error: any) {
       setError(error.message);
     }
