@@ -25,15 +25,15 @@ export class AppController {
     return this.padService.pad(Number(id));
   }
 
-  @Get('pads')
-  async getPads(): Promise<PadModel[]> {
-    return this.padService.pads();
+  @Get('pads/:email')
+  async getPads(@Param('email') email: string): Promise<PadModel[]> {
+    return this.padService.pads(email);
   }
 
   @Post('pad')
-  async createPad(@Body() padData: { content: string }): Promise<PadModel> {
-    const { content } = padData;
-    return this.padService.createPad(content);
+  async createPad(@Body() padData: { content: string, userEmail: string }): Promise<PadModel> {
+    const { content, userEmail } = padData;
+    return this.padService.createPad(content, userEmail);
   }
 
   @Delete('pad/:id')

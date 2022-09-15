@@ -17,7 +17,7 @@ export interface PadContextProps {
   pads: IPad[];
   singlePad: IPad;
   error: string;
-  fetchPads: () => void;
+  fetchPads: (userEmail: string) => void;
   fetchSinglePad: (id: number) => void;
   createPad: (content: string) => void;
   deletePad: (id: number) => void;
@@ -56,11 +56,9 @@ export interface IUser {
 
 export interface UserContextProps {
   user: any;
-  userData: any;
   isLoggedIn: boolean;
   error: string;
   loginWithGoogle: () => void;
-  getUserWithPads: (email: string) => void;
   logout: () => void;
 }
 

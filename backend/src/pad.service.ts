@@ -1,4 +1,4 @@
-import { Injectable, Req } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { PrismaService } from './prisma.service';
 import { ScratchPad } from '@prisma/client';
 
@@ -12,14 +12,20 @@ export class PadService {
     });
   }
 
-  async pads(): Promise<ScratchPad[]> {
-    return this.prisma.scratchPad.findMany({});
+  async pads(email: string): Promise<ScratchPad[]> {
+    return this.prisma.scratchPad.findMany({ where: { userEmail: email } });
   }
 
-  async createPad(content: string): Promise<ScratchPad> {
+  async createPad(content: string, userEmail: string): Promise<ScratchPad> {
     return this.prisma.scratchPad.create({
       data: {
         content,
+        userEmail,
+      },
+      select: {
+        userEmail: true,
+        id: true,
+        content: true,
       },
     });
   }

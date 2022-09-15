@@ -2,6 +2,7 @@ import { createContext, useEffect, useState } from "react";
 import { UserContextProps, UserProviderProps } from "../types";
 import { auth } from "../firebase";
 import {
+  getAdditionalUserInfo,
   GoogleAuthProvider,
   onAuthStateChanged,
   signInWithPopup,
@@ -9,37 +10,35 @@ import {
 } from "firebase/auth";
 import { useRouter } from "next/router";
 import axios from "axios";
+import { saveUserToDatabase } from "../utils/saveUserToDatabase";
 
 export const UserContext = createContext<UserContextProps>(null);
 
 export const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
   const [user, setUser] = useState<any>();
-  const [userData, setUserData] = useState();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [error, setError] = useState("");
 
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        setUser(user);
+        setIsLoggedIn(true);
+      } else {
+        setUser(null);
+        setIsLoggedIn(false);
+      }
+    });
+
+    return () => unsubscribe();
+  }, []);
+
   const loginWithGoogle = async () => {
-    signInWithPopup(auth, new GoogleAuthProvider())
-      .then(async (response) => {
-        if (response.user !== null) {
-          await axios.post("http://localhost:3000/auth/user", {
-            email: response.user.email,
-          });
+    const response = await signInWithPopup(auth, new GoogleAuthProvider());
 
-          setUser(response.user);
-          setIsLoggedIn(true);
-        }
-      })
-      .catch((error: any) => {
-        setError(error.message);
-      });
-  };
-
-  const getUserWithPads = async (email: string) => {
-    const response = await axios.get(
-      `http://localhost:3000/auth/user/${email}`
-    );
-    setUserData(response.data);
+    if (getAdditionalUserInfo(response).isNewUser) {
+      await saveUserToDatabase(response.user.email);
+    }
   };
 
   const logout = async () => {
@@ -50,11 +49,9 @@ export const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
     <UserContext.Provider
       value={{
         user,
-        userData,
         isLoggedIn,
         error,
         loginWithGoogle,
-        getUserWithPads,
         logout,
       }}
     >

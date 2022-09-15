@@ -2,6 +2,7 @@ import { createContext, useState } from "react";
 import { PadContextProps, PadProviderProps } from "../types";
 import axios from "axios";
 import { useRouter } from "next/router";
+import { auth } from "../firebase";
 
 export const PadContext = createContext<PadContextProps>(null);
 
@@ -11,9 +12,11 @@ export const PadProvider: React.FC<PadProviderProps> = ({ children }) => {
   const [error, setError] = useState("");
   const router = useRouter();
 
-  const fetchPads = async () => {
+  const fetchPads = async (userEmail: string) => {
     try {
-      const response = await axios.get("http://localhost:3000/pads");
+      const response = await axios.get(
+        `http://localhost:3000/pads/${userEmail}`
+      );
       setPads(response.data);
     } catch (error: any) {
       setError(error.message);
@@ -33,6 +36,7 @@ export const PadProvider: React.FC<PadProviderProps> = ({ children }) => {
     try {
       const result = await axios.post("http://localhost:3000/pad", {
         content: content,
+        userEmail: auth.currentUser.email,
       });
 
       if (result.status == 204) {

@@ -11,14 +11,21 @@ export class AuthenticationService {
       data: {
         email,
       },
+      include: {
+        pads: true,
+      },
     });
   }
 
   async getUser(email: string): Promise<User | null> {
-    return this.prismaService.user.findFirst({
+    return this.prismaService.user.findUnique({
       where: { email: email },
       include: {
-        pads: true,
+        pads: {
+          where: {
+            userEmail: email,
+          },
+        },
       },
     });
   }
