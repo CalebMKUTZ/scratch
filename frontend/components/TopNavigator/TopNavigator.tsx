@@ -6,21 +6,15 @@ import Button from "../Button";
 import { useUser } from "../../hooks/useUser";
 
 const TopNavigator: React.FC = () => {
-  const { getUserWithPads, logout, isLoggedIn, user, userData } = useUser();
+  const { logout, user } = useUser();
   const router = useRouter();
-
-  useEffect(() => {
-    if (isLoggedIn) {
-      getUserWithPads(user.email);
-    }
-  }, []);
 
   const logoutCurrentUser = () => {
     logout();
     router.push("/");
   };
 
-  return isLoggedIn ? (
+  return user ? (
     <nav className="flex flex-row justify-between items-center bg-gray-800 p-3">
       <div className="flex flex-row items-center gap-[0.5rem]">
         <Logo />
@@ -32,7 +26,7 @@ const TopNavigator: React.FC = () => {
         <NavigatorOption name="Trash" />
       </div>
       <div className="flex flex-row items-center gap-3">
-        <p className="font-black text-white text-sm">{userData?.email}</p>
+        <p className="font-black text-white text-sm">{user.email}</p>
         <Button color="primary" onClick={logoutCurrentUser}>
           logout
         </Button>
@@ -42,7 +36,7 @@ const TopNavigator: React.FC = () => {
     <nav className="flex flex-row justify-between items-center bg-gray-800 p-3">
       <div className="flex flex-row items-center gap-[0.5rem]">
         <Logo />
-        <NavigatorOption name="Login" onNavigate={() => router.push("/")} />
+        <NavigatorOption name="Login" onNavigate={logoutCurrentUser} />
       </div>
     </nav>
   );

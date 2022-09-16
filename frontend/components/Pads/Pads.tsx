@@ -6,10 +6,10 @@ import Pad from "./Pad";
 
 const Pads = () => {
   const { pads, error, fetchPads } = usePad();
-  const { isLoggedIn, user } = useUser();
+  const { user } = useUser();
 
   useEffect(() => {
-    if (isLoggedIn) {
+    if (user !== undefined) {
       fetchPads(user.email);
     }
   }, []);

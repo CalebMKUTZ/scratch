@@ -8,25 +8,20 @@ import {
   signInWithPopup,
   signOut,
 } from "firebase/auth";
-import { useRouter } from "next/router";
-import axios from "axios";
 import { saveUserToDatabase } from "../utils/saveUserToDatabase";
 
 export const UserContext = createContext<UserContextProps>(null);
 
 export const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
   const [user, setUser] = useState<any>();
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [error, setError] = useState("");
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
         setUser(user);
-        setIsLoggedIn(true);
       } else {
         setUser(null);
-        setIsLoggedIn(false);
       }
     });
 
@@ -34,10 +29,14 @@ export const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
   }, []);
 
   const loginWithGoogle = async () => {
-    const response = await signInWithPopup(auth, new GoogleAuthProvider());
+    try {
+      const response = await signInWithPopup(auth, new GoogleAuthProvider());
 
-    if (getAdditionalUserInfo(response).isNewUser) {
-      await saveUserToDatabase(response.user.email);
+      if (getAdditionalUserInfo(response).isNewUser) {
+        await saveUserToDatabase(response.user.email);
+      }
+    } catch (error: any) {
+      setError(error.message);
     }
   };
 
@@ -49,7 +48,6 @@ export const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
     <UserContext.Provider
       value={{
         user,
-        isLoggedIn,
         error,
         loginWithGoogle,
         logout,

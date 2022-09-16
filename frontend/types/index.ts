@@ -45,6 +45,7 @@ export interface InputProps {
 export interface ButtonProps {
   color: "primary" | "blacked" | "default";
   onClick?: () => any;
+  fullWidth?: boolean;
   children: React.ReactNode;
 }
 
@@ -56,7 +57,6 @@ export interface IUser {
 
 export interface UserContextProps {
   user: any;
-  isLoggedIn: boolean;
   error: string;
   loginWithGoogle: () => void;
   logout: () => void;

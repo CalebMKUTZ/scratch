@@ -1,10 +1,17 @@
 import React from "react";
 import { ButtonProps } from "../types";
 
-const Button: React.FC<ButtonProps> = ({ color, onClick, children }) => {
+const Button: React.FC<ButtonProps> = ({
+  color,
+  onClick,
+  fullWidth,
+  children,
+}) => {
   return (
     <div
       className={`font-bold text-sm p-3 text-center cursor-pointer rounded w-[150px] ${
+        fullWidth ? "w-full" : null
+      } ${
         color === "primary"
           ? "bg-blue-400 hover:bg-blue-500"
           : color === "blacked"
