@@ -10,7 +10,7 @@ export interface IPad {
   id: number;
   content: string;
   user: IUser;
-  userId: number;
+  userEmail: string;
 }
 
 export interface PadContextProps {
@@ -70,4 +70,30 @@ export interface CardProps {
   title?: string;
   content?: string;
   children: React.ReactNode;
+}
+
+export interface ITodo {
+  id: number;
+  name: string;
+  isChecked: boolean;
+  user: IUser;
+  userEmail: string;
+}
+
+export interface TodoContextProps {
+  todos: ITodo[];
+  singleTodo: ITodo;
+  error: string;
+  fetchTodos: (userEmail: string) => void;
+  fetchSingleTodo: (id: number) => void;
+  createTodo: (name: string) => void;
+  deleteTodo: (id: number) => void;
+}
+
+export interface TodoProviderProps {
+  children: React.ReactNode;
+}
+
+export interface TodoProps {
+  todo: ITodo;
 }

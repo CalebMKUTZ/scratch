@@ -6,15 +6,12 @@ import Message from "../components/Message";
 import { useUser } from "../hooks/useUser";
 
 const Index = () => {
-  const { loginWithGoogle, user, error } = useUser();
+  const { loginWithGoogle, error } = useUser();
   const router = useRouter();
 
-  const login = () => {
-    loginWithGoogle();
-
-    if (user) {
-      router.push("/pads");
-    }
+  const login = async () => {
+    await loginWithGoogle(); // the await needs to be there because it will make the router.push("/pads") wait 
+    router.push("/pads");
   };
 
   if (error) {

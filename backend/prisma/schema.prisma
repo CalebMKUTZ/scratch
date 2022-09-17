@@ -14,11 +14,20 @@ model User {
   id    Int          @id @default(autoincrement())
   email String       @unique
   pads  ScratchPad[]
+  todos Todo[]
 }
 
 model ScratchPad {
   id        Int     @id @default(autoincrement())
   content   String
   User      User?   @relation(fields: [userEmail], references: [email])
+  userEmail String?
+}
+
+model Todo {
+  id        Int      @id @default(autoincrement())
+  name      String
+  isChecked Boolean? @default(false)
+  User      User?    @relation(fields: [userEmail], references: [email])
   userEmail String?
 }

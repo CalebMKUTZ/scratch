@@ -9,8 +9,8 @@ const Button: React.FC<ButtonProps> = ({
 }) => {
   return (
     <div
-      className={`font-bold text-sm p-3 text-center cursor-pointer rounded w-[150px] ${
-        fullWidth ? "w-full" : null
+      className={`font-bold text-sm p-3 text-center cursor-pointer rounded ${
+        fullWidth ? "w-full" : "w-[150px]"
       } ${
         color === "primary"
           ? "bg-blue-400 hover:bg-blue-500"

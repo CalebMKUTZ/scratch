@@ -26,6 +26,11 @@ export class AuthenticationService {
             userEmail: email,
           },
         },
+        todos: {
+          where: {
+            userEmail: email,
+          },
+        },
       },
     });
   }

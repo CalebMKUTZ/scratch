@@ -22,13 +22,20 @@ const SideNavigator = () => {
         {strippedEndpoint}
       </h1>
       <SideNavigatorOption name="Settings" />
-      <SideNavigatorOption name="Sticky notes" />
-      <SideNavigatorOption name="Todo list" />
+      <SideNavigatorOption
+        name="Create pad"
+        onNavigate={() => router.push("/create")}
+      />
+      <SideNavigatorOption
+        name="Create todo"
+        onNavigate={() => router.push("/create-todo")}
+      />
+      <SideNavigatorOption
+        name="Todo list"
+        onNavigate={() => router.push("/todos")}
+      />
       <div ref={drop} className="relative h-[500px]">
-        <FcEmptyTrash
-          fontSize="70px"
-          className="absolute bottom-0 w-full"
-        />
+        <FcEmptyTrash fontSize="70px" className="absolute bottom-0 w-full" />
       </div>
     </nav>
   );

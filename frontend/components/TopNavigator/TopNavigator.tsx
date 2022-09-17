@@ -19,10 +19,6 @@ const TopNavigator: React.FC = () => {
       <div className="flex flex-row items-center gap-[0.5rem]">
         <Logo />
         <NavigatorOption name="Pads" onNavigate={() => router.push("/pads")} />
-        <NavigatorOption
-          name="Create"
-          onNavigate={() => router.push("/create")}
-        />
         <NavigatorOption name="Trash" />
       </div>
       <div className="flex flex-row items-center gap-3">

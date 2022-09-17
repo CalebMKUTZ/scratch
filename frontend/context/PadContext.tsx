@@ -1,8 +1,8 @@
 import { createContext, useState } from "react";
 import { PadContextProps, PadProviderProps } from "../types";
 import axios from "axios";
-import { useRouter } from "next/router";
 import { auth } from "../firebase";
+import { getPadsList } from "../utils/getPadsList";
 
 export const PadContext = createContext<PadContextProps>(null);
 
@@ -10,7 +10,6 @@ export const PadProvider: React.FC<PadProviderProps> = ({ children }) => {
   const [pads, setPads] = useState([]);
   const [singlePad, setSinglePad] = useState();
   const [error, setError] = useState("");
-  const router = useRouter();
 
   const fetchPads = async (userEmail: string) => {
     try {
@@ -34,26 +33,20 @@ export const PadProvider: React.FC<PadProviderProps> = ({ children }) => {
 
   const createPad = async (content: string) => {
     try {
-      const result = await axios.post("http://localhost:3000/pad", {
+      await axios.post("http://localhost:3000/pad", {
         content: content,
         userEmail: auth.currentUser.email,
       });
-
-      if (result.status == 204) {
-        setError("could not create pad");
-      }
     } catch (error: any) {
       setError(error.message);
     }
   };
 
-  // !router.reload() is not ideal for updating the state
-  // FIX: setPads(newList.data) but it does not work since newList.data is not an array
-  // TODO: fix this
   const deletePad = async (id: number) => {
     try {
-      const newList = await axios.delete(`http://localhost:3000/pad/${id}`);
-      router.reload();
+      await axios.delete(`http://localhost:3000/pad/${id}`);
+      const newList = await getPadsList();
+      setPads(newList);
     } catch (error: any) {
       setError(error.message);
     }
