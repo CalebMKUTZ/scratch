@@ -9,7 +9,7 @@ const MainGrid: React.FC<MainGridProps> = ({ children }) => {
   return (
     <div className="grid grid-cols-main gap-3">
       <SideNavigator />
-      <div className="grid grid-cols-4 gap-3 mt-3">
+      <div className="grid grid-cols-4 gap-3 mt-3 mr-3">
         {children}
       </div>
     </div>

@@ -97,3 +97,23 @@ export interface TodoProviderProps {
 export interface TodoProps {
   todo: ITodo;
 }
+
+export interface IArticle {
+  title: string;
+  url: string;
+  source: string;
+}
+
+export interface NewsContextProps {
+  articles: IArticle[],
+  error: string;
+  fetchArticles: () => void;
+}
+
+export interface NewsProviderProps {
+  children: React.ReactNode;
+}
+
+export interface ArticleProps {
+  article: IArticle;
+}

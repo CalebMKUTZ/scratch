@@ -21,11 +21,11 @@ const TodoList = () => {
   }
 
   return (
-    <div className="flex flex-col items-center gap-3 grid grid-cols-none">
+    <>
       {todos.map((todo) => (
         <Todo key={todo?.id} todo={todo} />
       ))}
-    </div>
+    </>
   );
 };
 

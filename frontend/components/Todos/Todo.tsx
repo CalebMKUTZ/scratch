@@ -13,7 +13,7 @@ const Todo: React.FC<TodoProps> = ({ todo }) => {
   };
 
   return (
-    <div className="flex flex-row justify-between items-center shadow-md rounded w-full bg-white p-3">
+    <div className="flex flex-row justify-between items-center shadow-md rounded w-full bg-white p-3 h-[50px]">
       <div className="flex flex-row items-center gap-3">
         <div
           onClick={checkTodo}

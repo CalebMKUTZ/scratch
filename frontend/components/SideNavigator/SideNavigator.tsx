@@ -34,7 +34,15 @@ const SideNavigator = () => {
         name="Todo list"
         onNavigate={() => router.push("/todos")}
       />
-      <div ref={drop} className="relative h-[500px]">
+      <SideNavigatorOption
+        name="Pads"
+        onNavigate={() => router.push("/pads")}
+      />
+      <SideNavigatorOption
+        name="Article viewer"
+        onNavigate={() => router.push("/article-viewer")}
+      />
+      <div ref={drop} className="relative h-[200px]">
         <FcEmptyTrash fontSize="70px" className="absolute bottom-0 w-full" />
       </div>
     </nav>
