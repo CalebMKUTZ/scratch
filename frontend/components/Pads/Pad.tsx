@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import { useDrag } from "react-dnd";
 import { PadProps } from "../../types";
 import { usePad } from "../../hooks/usePad";
@@ -26,7 +26,12 @@ const Pad: React.FC<PadProps> = ({ pad }) => {
   );
 
   return (
-    <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      whileHover={{ scale: 1.1 }}
+      whileTap={{ scale: 1.03 }}
+    >
       <div
         ref={dragRef}
         style={{ opacity }}

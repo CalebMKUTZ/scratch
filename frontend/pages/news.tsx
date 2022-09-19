@@ -1,7 +1,8 @@
-import MainGrid from "../components/MainGrid";
+import React from "react";
 import Articles from "../components/Article/Articles";
+import MainGrid from "../components/MainGrid";
 
-const ArticleViewerPage = () => {
+const NewsPage = () => {
   return (
     <MainGrid>
       <Articles />
@@ -9,4 +10,4 @@ const ArticleViewerPage = () => {
   );
 };
 
-export default ArticleViewerPage;
+export default NewsPage;

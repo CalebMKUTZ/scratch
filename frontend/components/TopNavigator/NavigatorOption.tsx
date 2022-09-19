@@ -11,7 +11,7 @@ const NavigatorOption: React.FC<NavigatorOptionProps> = ({
 }) => {
   return (
     <div
-      className="p-2 rounded hover:bg-gray-900"
+      className="p-2 rounded hover:bg-blue-900 cursor-pointer"
       onClick={onNavigate}
     >
       <h1 className="font-bold text-white">{name}</h1>

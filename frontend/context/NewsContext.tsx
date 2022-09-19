@@ -8,18 +8,12 @@ export const NewsProvider: React.FC<NewsProviderProps> = ({ children }) => {
   const [articles, setArticles] = useState();
   const [error, setError] = useState("");
 
-  const fetchArticles = async () => {
+  const fetchArticles = async (query: string) => {
     try {
-      const response = await axios.request({
-        method: "GET",
-        url: "https://global-news-api.p.rapidapi.com/news/news24/election",
-        headers: {
-          "X-RapidAPI-Key":
-            "7e13738764mshf269b65b399187fp1b41e2jsnbdf68f29276b",
-          "X-RapidAPI-Host": "global-news-api.p.rapidapi.com",
-        },
-      });
-      setArticles(response.data.articles);
+      const response = await axios.get(
+        `https://newsapi.org/v2/everything?q=${query}&apiKey=${process.env.NEWS_KEY}`
+      );
+      setArticles(response.data.articles.slice(0, 6));
     } catch (error: any) {
       setError(error.message);
     }

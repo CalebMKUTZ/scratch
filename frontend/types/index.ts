@@ -100,14 +100,15 @@ export interface TodoProps {
 
 export interface IArticle {
   title: string;
+  description: string;
   url: string;
-  source: string;
+  urlToImage: string;
 }
 
 export interface NewsContextProps {
-  articles: IArticle[],
+  articles: IArticle[];
   error: string;
-  fetchArticles: () => void;
+  fetchArticles: (query: string) => void;
 }
 
 export interface NewsProviderProps {

@@ -13,8 +13,6 @@ const Button: React.FC<ButtonProps> = ({
     <motion.a
       whileHover={{ scale: 1.03 }}
       whileTap={{scale: 1.3}}
-      onHoverStart={(e) => {}}
-      onHoverEnd={(e) => {}}
     >
       <div
         className={`${

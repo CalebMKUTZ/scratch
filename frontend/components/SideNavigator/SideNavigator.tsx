@@ -39,8 +39,8 @@ const SideNavigator = () => {
         onNavigate={() => router.push("/pads")}
       />
       <SideNavigatorOption
-        name="Article viewer"
-        onNavigate={() => router.push("/article-viewer")}
+        name="News search"
+        onNavigate={() => router.push("/news-search")}
       />
       <div ref={drop} className="relative h-[200px]">
         <FcEmptyTrash fontSize="70px" className="absolute bottom-0 w-full" />
