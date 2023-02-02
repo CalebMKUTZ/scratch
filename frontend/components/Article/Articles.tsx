@@ -1,18 +1,19 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useArticle } from "../../hooks/useArticle";
-import Button from "../Button";
-import Input from "../Input";
 import Article from "./Article";
 
-const Articles: React.FC = () => {
-  const { articles } = useArticle();
+const Articles = () => {
+  const { articles, fetchArticles } = useArticle();
+
+  useEffect(() => {
+    fetchArticles();
+  }, []);
 
   return (
     <>
-      {articles &&
-        articles.map((article, index) => (
-          <Article key={index} article={article} />
-        ))}
+      {articles && articles.map((article, index) => (
+        <Article key={index} article={article} />
+      ))}
     </>
   );
 };

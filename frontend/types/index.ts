@@ -100,15 +100,14 @@ export interface TodoProps {
 
 export interface IArticle {
   title: string;
-  description: string;
   url: string;
-  urlToImage: string;
+  source: string;
 }
 
 export interface NewsContextProps {
-  articles: IArticle[];
+  articles: IArticle[],
   error: string;
-  fetchArticles: (query: string) => void;
+  fetchArticles: () => void;
 }
 
 export interface NewsProviderProps {
@@ -117,4 +116,17 @@ export interface NewsProviderProps {
 
 export interface ArticleProps {
   article: IArticle;
+}
+
+export interface DrawingContextProps {
+  lines: any;
+  isDrawing: MutableRefObject<boolean>;
+  handleMouseDown: (e: any) => void;
+  handleMouseMove: (e: any) => void;
+  handleMouseUp: () => void;
+  clearBoard: () => void;
+}
+
+export interface DrawingProviderProps {
+  children: React.ReactNode;
 }

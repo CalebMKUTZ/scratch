@@ -15,7 +15,7 @@ const Todo: React.FC<TodoProps> = ({ todo }) => {
 
   return (
     <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
-      <div className="flex flex-row justify-between items-center shadow-md rounded w-full bg-red-300 p-3 h-[50px]">
+      <div className="flex flex-row justify-between items-center shadow-md rounded w-full bg-white p-3 h-[50px]">
         <div className="flex flex-row items-center gap-3">
           <div
             onClick={checkTodo}
